@@ -35,7 +35,7 @@
 #include "openni2_camera/openni2_device_info.h"
 
 #include <boost/thread/mutex.hpp>
-
+#include <tr1/functional>
 #include <vector>
 #include <string>
 #include <ostream>
@@ -62,6 +62,11 @@ public:
   boost::shared_ptr<OpenNI2Device> getDevice(const std::string& device_URI);
 
   std::string getSerial(const std::string& device_URI) const;
+
+  /**
+   * Pass a function for reconnection behavior.
+   */
+  void registerReconnectCb(std::tr1::function<void()> driver_reconnect);
 
 protected:
   boost::shared_ptr<OpenNI2DeviceListener> device_listener_;
