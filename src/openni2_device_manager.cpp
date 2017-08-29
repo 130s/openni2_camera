@@ -249,9 +249,13 @@ boost::shared_ptr<OpenNI2Device> OpenNI2DeviceManager::getAnyDevice()
 }
 boost::shared_ptr<OpenNI2Device> OpenNI2DeviceManager::getDevice(const std::string& device_URI)
 {
+  ROS_INFO("In getDevice");
   return boost::make_shared<OpenNI2Device>(device_URI);
 }
 
+void OpenNI2DeviceManager::registerReconnectCb(std::tr1::function<void()> driver_reconnect){
+  driver_reconnect();
+}
 
 std::ostream& operator << (std::ostream& stream, const OpenNI2DeviceManager& device_manager) {
 
